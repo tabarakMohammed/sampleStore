@@ -1,0 +1,61 @@
+﻿@model IEnumerable<sellsTask.Entities.items>
+
+@{
+    ViewBag.Title = "index";
+}
+<header class="text-right pb-lg-5">
+    <div class="form-horizontal">
+        <h2>items</h2>
+        <hr />
+    </div>
+</header>
+
+<div class="row pb-lg-2">
+    <h4 class="col-md-4 card-text">
+        @Html.DisplayNameFor(model => model.itemName)
+    </h4>
+    <h4 class="col-md-4 card-text">
+        @Html.DisplayNameFor(model => model.itemType)
+    </h4>
+
+</div>
+
+
+
+@foreach (var item in Model)
+{
+    <div class="card bg-light" max-width:inherit">
+        <div class="card-body" onclick="openDe(@item.itemID)">
+            <div class="row">
+                <div class="col-md-4 card-text" data-toggle="tooltip" data-placement="top" title="Click to show more Details ">
+
+                    @Html.DisplayFor(modelItem => item.itemName)
+                </div>
+                <div class="col-md-4 card-text" data-toggle="tooltip" data-placement="top" title="Click to show more Details ">
+                    @Html.DisplayFor(modelItem => item.itemType)
+                </div>
+                <div class="card-text">
+
+                    @Html.ActionLink("Edit", "Edit", new { id = item.itemID }, new { @class = "btn btn-purple" }) 
+                    @Html.ActionLink("Details", "Details", new { id = item.itemID }, new { @class = "btn btn-purple" }) 
+                    @Html.ActionLink("Delete", "Delete", new { id = item.itemID }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("addToStorge", "../storge/create", new { id = item.itemID }, new { @class = "btn btn-purple" })
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <br />
+
+}
+
+<script>
+    function openDe(jsId) {
+
+        window.location = '/items/Details/' + jsId;
+
+    }
+
+</script>
+
+

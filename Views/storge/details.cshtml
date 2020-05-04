@@ -1,0 +1,53 @@
+﻿@model sellsTask.Entities.storge
+
+@{
+    ViewBag.Title = "details";
+}
+
+
+
+
+<h4>storge details</h4>
+    <hr />
+  
+
+<div class="card text-center bg-transparent ">
+    <div class="card-header bg-light">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item px-1">
+                @Html.ActionLink("Edit", "Edit",
+               new { id = Model.storgeID }, new { @class = "btn btn-purple" })
+            </li>
+            <li class="nav-item pb-1">
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-purple" })
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <p class="card-text">
+            <h5 class="card-title pr-lg-4" style="display:inline">
+                @Html.DisplayNameFor(model => model.storeName) :
+            </h5>
+            @Html.DisplayFor(model => model.storeName)
+            <br />
+            <h5 class="card-title pr-lg-5" style="display:inline">
+
+                @Html.DisplayNameFor(model => model.Quantity) :
+            </h5>
+            @Html.DisplayFor(model => model.Quantity)
+            <br />
+            <h5 class="card-title pr-lg-5" style="display:inline">
+
+                @Html.DisplayNameFor(model => model.itemID) :
+            </h5>
+            @Html.DisplayFor(model => model.itemID)
+            <br />
+            <h5 class="card-title pr-lg-4" style="display:inline">
+
+                itemName :
+            </h5>
+            @(ViewBag.itemD.itemName)
+        </p>
+
+    </div>
+</div>

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<sellsTask.Entities.costumer>
+
+@{
+    ViewBag.Title = "Costomers";
+}
+ 
+    
+
+
+        @foreach (var item in Model)
+        {
+             
+
+                <div class="card bg-light" max-width:inherit">
+                    <div class="card-body" onclick="openDe(@item.costumerID)">
+                        <div class="row">
+                            
+                            <div class="col-md-4 card-text" data-toggle="tooltip" data-placement="top" title="Click to show more Details ">
+                                @Html.DisplayFor(modelItem => item.name)
+                               
+                            </div>
+                            <div class="col-md-4 card-text" data-toggle="tooltip" data-placement="top" title="Click to show more Details ">
+                                @Html.DisplayFor(modelItem => item.phoneNumber)
+                            </div>
+                            <div >
+
+
+                                @Html.ActionLink("Edit", "Edit", new { id = item.costumerID }, new { @class = "btn btn-purple" })
+
+                                @Html.ActionLink("Delete", "Delete", new { id = item.costumerID }, new { @class = "btn btn-danger" })
+                            </div>
+                        </div>
+                    </div>   
+                </div>
+                <br/>
+            
+        }
+    
+<script>
+       function openDe( jsId) {
+          
+           window.location = '/Home/Details/' + jsId;
+
+        }
+
+</script>
+
+

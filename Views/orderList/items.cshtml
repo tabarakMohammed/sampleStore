@@ -1,0 +1,77 @@
+﻿
+
+
+<link rel="Stylesheet" 
+      href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/themes/cupertino/jquery-ui.css" />
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $("#itemName").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/orderList/itmPartial/",
+                    data: "{'Prefix' : '" + request.term + "'}",
+                    dataType: "Json",
+                    type: "POST",
+                    contentType: "application/json; charset-utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            $("#itemName").val(item.itemName);
+                            return item;
+
+                        }))
+                    },
+
+                });
+            },
+            minLength: 1,
+            select: function (event, ui) {
+                
+                $("#itemsName").val(ui.item.itemName);
+              //  $("#quntity").val(ui.item.itemQuantity);
+                $("#storgeInfo").val(ui.item.storeName);
+                $("#itemId").val(ui.item.itemId);
+                $("#sId").val(ui.item.storgeId);
+             
+                return false;
+            }
+        })
+            .autocomplete("instance")._renderItem = function (ul, item) {
+                return $("<li>")
+                    .append("<div>" + item.itemName + "," + item.storeName + "," + item.itemQuantity +  "</div>")
+                    .appendTo(ul);
+            };
+    });
+
+</script>
+
+
+<div class="container" >
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-3">
+
+                <input type="hidden" id="sId" />
+                <input type="hidden" id="itemId" />
+                <label>item name</label>
+                <input class="form-control" type="text" id="itemName" name="itemname" />
+            </div>
+
+            <div class="col-md-3">
+                <label>quntity</label>
+                <input class="form-control" type="number"  id="quntity"  name="quntity" />
+            </div>
+
+            <div class="col-md-3">
+                
+                <input class="form-control" type="hidden" id="storgeInfo" name="storgeName" />
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<p id="storgeInfo"></p>

@@ -1,0 +1,60 @@
+﻿
+
+    <link rel="Stylesheet"
+          href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/themes/cupertino/jquery-ui.css" />
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+    $(function () {
+        $("#costomerName").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/orderList/cosPartial/",
+                    data: "{'Prefix' : '" + request.term + "'}",
+                    dataType: "Json",
+                    type: "POST",
+                    contentType: "application/json; charset-utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                           
+                            return item;
+
+                        }))
+                    },
+                    
+                });
+            },
+            minLength: 1,
+            select: function (event, ui) {
+
+                $("#costmId").val(ui.item.id);
+                $("#numbersx").val(ui.item.numb);
+            }
+        });
+    });
+
+</script>
+
+
+<div class="container">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-3">
+                <input type="hidden" id="costmId" />
+                <label>costomer name</label>
+                <input class="form-control" type="text" id="costomerName" name="Prefix" />
+            </div>
+
+            <div class="col-md-3">
+                <label>costomer phone</label>
+                <input class="form-control" type="text" id="numbersx" name="numbers" />
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+

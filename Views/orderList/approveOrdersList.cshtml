@@ -1,0 +1,167 @@
+﻿@model sellsTask.Entities.generalModels
+
+@{
+    ViewBag.Title = "approveOrdersList";
+}
+
+
+
+<h2>approveOrdersList</h2>
+
+
+
+
+
+
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#btnGet").click(function () {
+
+            addtolist();
+
+        });
+
+        $("#order").click(function () {
+
+            makeOrder();
+
+        });
+
+
+    });
+
+    function addtolist() {
+        var storgeId = $("#sId").val();
+
+        var tableItemList = $("#tbIL");
+        var itemId = $("#itemId").val();
+        var costId = $("#costmId").val();
+        var quntity = $("#quntity").val();
+        var costmerName = $("#costomerName").val();
+        var itemName = $("#itemName").val();
+
+        var markup = "<tr><td style='display:none;'>"
+            + itemId + "</td><td style='display:none;'>"
+            + costId + "</td><td>"
+            + costmerName + "</td><td>"
+            + itemName + "</td><td>"
+            + quntity + "</td><td>"
+            + '<input type="button" value="remove" name="remove" class="btn btn-danger" onclick="removeItem(this)" />'
+            + " </td> </tr > ";
+
+
+
+        $.ajax({
+            async: true,
+            type: 'POST',
+            dataType: "Json",
+            contentType: "application/json; charset-utf-8",
+            data: "{id:" + JSON.stringify(storgeId) + "}",
+            url: "/orderList/checkQuntity/",
+            success: function (data) {
+
+                if (quntity > data || quntity == "")
+                {
+                    $("#quntity").val("");
+                    alert("quntity input bigger than quntity in database or empty")
+                }
+                else {
+
+                    tableItemList.append(markup);
+
+                }
+
+               
+            },
+            error: function () {
+                alert("error")
+            },
+        })
+
+       
+        
+    }
+
+
+
+    function removeItem(itemID) {
+        $(itemID).closest("tr").remove();
+    }
+
+
+
+    function makeOrder() {
+        var saveOrderL = new Array();
+       
+
+        var tb = $('#tbIL').find("tr:gt(0)").each(function () {
+            var dataobject = {};
+            dataobject.storgeId = $("#sId").val();
+            dataobject.itemId = $(this).find("td:eq(0)").text();
+            dataobject.costId = $(this).find("td:eq(1)").text();
+            dataobject.costmerName = $(this).find("td:eq(2)").text();
+            dataobject.itemName = $(this).find("td:eq(3)").text();
+            dataobject.quntity = $(this).find("td:eq(4)").text();
+            saveOrderL.push(dataobject);
+            console.log(saveOrderL);
+        });
+
+        $.ajax({
+            async: true,
+            type: 'POST',
+            dataType: "Json",
+            contentType: "application/json; charset-utf-8",
+            data: JSON.stringify(saveOrderL),
+            url: "/orderList/saveOrder/",
+            success: function (data) {
+                alert(data[0].quntity)
+                console.log(data);
+
+            },
+            error: function () {
+                alert("error")
+            },
+        })
+
+    }
+</script>
+
+<input type="hidden" id="dataQuantity"  />
+
+
+
+
+@{
+
+    Html.RenderPartial("costomer");
+    <br />
+    Html.RenderPartial("items");
+
+}
+
+<div style="text-align:right">
+
+    <button id="btnGet" class="btn btn-purple"> add </button>
+
+    <input type="button" value="save" id="order" class="btn btn-purple" />
+</div>
+
+
+
+
+
+<table style="width:100%;" id="tbIL" class="table table-bordered bg-light">
+
+    <tr>
+
+        <th>Costomer Name</th>
+        <th>Item Name</th>
+        <th>Quntity</th>
+    </tr>
+
+</table>
+
+ 

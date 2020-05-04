@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - MY SELLS </title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/slide.css">
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+</head>
+<body id="wrapper" onpageshow=" openNav()"  style="background-color: #ecf0f1">
+
+    
+
+
+    <div class="navbar-header">
+        <button class="openbtn" id="main" >&#9776;</button>
+    </div>
+
+  
+
+
+    <div id="mySidebar" class="sidebar">
+        <ul style="color:white">
+
+            <li>
+
+                @Html.ActionLink("costomer", "Index", "Home")
+
+
+                <span id="show" class="material-icons"
+                      style="display:inline-block;color:whitesmoke;cursor: pointer;">
+                    keyboard_arrow_down
+                </span>
+                <ul id="uiList" style="display:none">
+                    <li>@Html.ActionLink("create", "/create", "Home")</li>
+                </ul>
+
+            </li>
+
+
+            <li>
+                @Html.ActionLink("items", "index", "items")
+                <span id="s" class="material-icons"
+                      style="display:inline-block;color:whitesmoke;cursor: pointer;">
+                    keyboard_arrow_down
+                </span>
+
+                <ul id="u" style="display:none">
+                    <li>@Html.ActionLink("create", "create", "items")</li>
+                </ul>
+
+            </li>
+            <li>
+                @Html.ActionLink("storge", "index", "storge")
+            </li>
+            <li>
+                @Html.ActionLink("Order", "approveOrdersList", "orderList")
+            </li>
+        </ul>
+
+    </div>
+
+
+
+    <script>
+
+        var body = document.getElementById('wrapper');
+        var except = document.getElementById('main');
+        var mySidebar = document.getElementById('mySidebar');
+        var x = true;
+        body.addEventListener("click", function () {
+            closeNav()
+        }, false);
+        except.addEventListener("click", function (ev) {
+            openNav();
+            ev.stopPropagation();
+        }, false);
+        mySidebar.addEventListener("click", function (ev) {
+            ev.stopPropagation();
+        }, false);
+
+
+
+
+        function openNav() {
+
+            if (x) {
+                x = false;
+                document.getElementById("mySidebar").style.width = "200px";
+                document.getElementById("main").style.marginLeft = "200px";
+                document.getElementById("contint").style.marginLeft = "200px";
+            } else {
+                x = true;
+                closeNav();
+            }
+        }
+
+
+
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+            document.getElementById("contint").style.marginLeft = "0";
+
+        }
+
+        $("#show").click(function () {
+            $("#uiList").toggle();
+        });
+
+        $("#s").click(function () {
+            $("#u").toggle();
+        });
+
+
+
+    </script>
+    <div id="contint">
+        <div class="container body-content">
+            @RenderBody()
+            <div />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - my sell Application</p>
+            </footer>
+        </div>
+    </div>
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+

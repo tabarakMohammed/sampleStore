@@ -1,0 +1,43 @@
+﻿@model sellsTask.Entities.items
+
+@{
+    ViewBag.Title = "details";
+}
+
+
+<div>
+    <h4>details items</h4>
+    <hr />
+
+</div>
+
+
+
+<div class="card text-center bg-transparent ">
+    <div class="card-header bg-light">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item px-1">
+                @Html.ActionLink("Edit", "Edit",
+               new { id = Model.itemID }, new { @class = "btn btn-purple" })
+            </li>
+            <li class="nav-item pb-1">
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-purple" })
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <p class="card-text">
+            <h5 class="card-title pr-lg-5" style="display:inline">
+                @Html.DisplayNameFor(model => model.itemName) :
+            </h5>
+            @Html.DisplayFor(model => model.itemName)
+            <br />
+            <h5 class="card-title pr-lg-5" style="display:inline">
+
+                @Html.DisplayNameFor(model => model.itemType) :
+            </h5>
+            @Html.DisplayFor(model => model.itemType)
+        </p>
+
+    </div>
+</div>
