@@ -22,9 +22,9 @@ namespace sellsTask.SolutionItems
                 ISessionFactory sessionFactory = Fluently.Configure().
                    Database(MySQLConfiguration.Standard.ConnectionString(
             x => x.Server("localhost").
-               Username("root").
-               Password("tabarak1234").
-               Database("sells")
+               Username("dataBaseUser").
+               Password("yourPassword").
+               Database("Schema")
             )).
                    Mappings(m => m.FluentMappings.AddFromAssemblyOf<sellsTask.Mappings.costomerMap>().
                    AddFromAssemblyOf<sellsTask.Mappings.itemsMap>().
